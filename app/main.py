@@ -14,6 +14,10 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 
+@app.get('/', status_code=status.HTTP_200_OK)
+def root():
+    return {"Welcome to TestAPI by OneHandedPirate. The following paths are available": ['create_account', 'login', 'get_info', 'delete_account']}
+
 @app.post('/create_account', status_code=status.HTTP_201_CREATED,
           response_model=schemas.UserResponse)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
